@@ -1,0 +1,472 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compass v4 — Analítica Médica</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div id="wrapper" class="d-flex">
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon"><i class="bi bi-compass"></i></div>
+      <span class="brand-label">Compass</span>
+      <span class="brand-version">v4</span>
+    </div>
+    <div class="sidebar-section-label">Navegacion</div>
+    <nav class="sidebar-nav">
+      <a href="#" class="sidebar-link active"><i class="bi bi-speedometer2"></i><span>Dashboard</span></a>
+      <a href="#" class="sidebar-link"><i class="bi bi-bar-chart-line"></i><span>Reportes</span></a>
+      <a href="#" class="sidebar-link"><i class="bi bi-people"></i><span>Pacientes</span></a>
+      <a href="#" class="sidebar-link"><i class="bi bi-calendar-check"></i><span>Agenda</span></a>
+    </nav>
+    <div class="sidebar-section-label mt-3">Filtros</div>
+    <form id="filterForm" class="sidebar-filters">
+      <div class="filter-group">
+        <label><i class="bi bi-globe2"></i> Region</label>
+        <select class="form-select form-select-sm">
+          <option value="">Todas</option>
+          <option>Region Metropolitana</option>
+          <option>Region Sur</option>
+          <option>Region Norte</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label><i class="bi bi-hospital"></i> Centro Asistencial</label>
+        <select class="form-select form-select-sm">
+          <option value="">Todos</option>
+          <option>Hospital Central</option>
+          <option>Clinica Sur</option>
+          <option>Hospital del Norte</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label><i class="bi bi-calendar3"></i> Ano Ingreso</label>
+        <select class="form-select form-select-sm">
+          <option>2026</option><option>2025</option><option>2024</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label><i class="bi bi-heart-pulse"></i> Especialidad</label>
+        <select class="form-select form-select-sm">
+          <option value="">Todas</option>
+          <option>Cardiologia</option><option>UCI</option>
+          <option>Emergencias</option><option>Medicina Interna</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label><i class="bi bi-funnel"></i> Filtro</label>
+        <select class="form-select form-select-sm">
+          <option value="">Todos</option>
+          <option>Criticos</option>
+          <option>Altas Pendientes</option>
+          <option>Reingresos</option>
+        </select>
+      </div>
+      <button type="submit" class="btn-apply"><i class="bi bi-search"></i> Aplicar busqueda</button>
+    </form>
+    <div class="sidebar-user">
+      <div class="user-avatar">DR</div>
+      <div class="user-info">
+        <span class="user-name">Dr. Ramirez</span>
+        <span class="user-role">Admin</span>
+      </div>
+      <a href="#" class="text-muted ms-auto"><i class="bi bi-box-arrow-right"></i></a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div id="main-content">
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <button id="sidebarToggle" class="topbar-btn"><i class="bi bi-list fs-4"></i></button>
+      <div class="topbar-search">
+        <i class="bi bi-search"></i>
+        <input type="search" placeholder="Buscar paciente, diagnostico, codigo..." />
+      </div>
+      <div class="topbar-filters">
+        <select class="form-select form-select-sm">
+          <option>Hoy</option><option>Esta semana</option>
+          <option selected>Este mes</option><option>Ultimo trimestre</option>
+        </select>
+      </div>
+      <div class="topbar-actions">
+        <button class="topbar-btn position-relative" data-bs-toggle="offcanvas" data-bs-target="#notificationsPanel">
+          <i class="bi bi-bell fs-5"></i>
+          <span class="notif-badge">3</span>
+        </button>
+        <button class="topbar-btn"><i class="bi bi-gear fs-5"></i></button>
+      </div>
+    </header>
+
+    <!-- PAGE BODY -->
+    <div class="page-body">
+      <div class="page-title-row">
+        <div>
+          <h1 class="page-title">Monitor de Operaciones</h1>
+          <p class="page-subtitle">Hospital Central &mdash; Actualizado hoy, 13 de abril de 2026</p>
+        </div>
+        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#kpiModal">
+          <i class="bi bi-grid-3x3-gap me-1"></i>Ver todos los KPIs
+        </button>
+      </div>
+
+      <!-- KPIs -->
+      <div class="kpi-grid">
+        <div class="kpi-card kpi-primary">
+          <div class="kpi-header">
+            <span class="kpi-label">Carga Actual</span>
+            <span class="kpi-icon bg-primary-soft"><i class="bi bi-activity text-primary"></i></span>
+          </div>
+          <div class="kpi-value">217</div>
+          <div class="kpi-footer">
+            <span class="kpi-trend up"><i class="bi bi-arrow-up-short"></i>+12 vs ayer</span>
+            <span class="kpi-sub text-muted">Pacientes en atencion</span>
+          </div>
+        </div>
+        <div class="kpi-card kpi-danger">
+          <div class="kpi-header">
+            <span class="kpi-label">Pacientes Criticos</span>
+            <span class="kpi-icon bg-danger-soft"><i class="bi bi-exclamation-triangle text-danger"></i></span>
+          </div>
+          <div class="kpi-value text-danger">70</div>
+          <div class="kpi-footer">
+            <span class="kpi-trend down"><i class="bi bi-arrow-down-short"></i>-3 vs ayer</span>
+            <span class="kpi-sub text-muted">Requieren intervencion</span>
+          </div>
+        </div>
+        <div class="kpi-card kpi-warning">
+          <div class="kpi-header">
+            <span class="kpi-label">Altas Pendientes</span>
+            <span class="kpi-icon bg-warning-soft"><i class="bi bi-clock-history text-warning"></i></span>
+          </div>
+          <div class="kpi-value text-warning">140</div>
+          <div class="kpi-footer">
+            <span class="kpi-trend up"><i class="bi bi-arrow-up-short"></i>+8 vs ayer</span>
+            <span class="kpi-sub text-muted">Por gestionar hoy</span>
+          </div>
+        </div>
+        <div class="kpi-card kpi-success">
+          <div class="kpi-header">
+            <span class="kpi-label">Eficiencia Operativa</span>
+            <span class="kpi-icon bg-success-soft"><i class="bi bi-graph-up-arrow text-success"></i></span>
+          </div>
+          <div class="kpi-value text-success">92%</div>
+          <div class="kpi-footer">
+            <span class="kpi-trend up"><i class="bi bi-arrow-up-short"></i>+2% vs mes ant.</span>
+            <span class="kpi-sub text-muted">Indice operativo</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TABS -->
+      <ul class="nav compass-tabs mb-4" id="dashboardTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#siniestralidad" type="button" role="tab">
+            <i class="bi bi-bar-chart me-1"></i>Analisis de Siniestralidad
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" data-bs-toggle="tab" data-bs-target="#detalle" type="button" role="tab">
+            <i class="bi bi-file-medical me-1"></i>Detalle Clinico
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" data-bs-toggle="tab" data-bs-target="#analiticas" type="button" role="tab">
+            <i class="bi bi-table me-1"></i>Tablas Analiticas
+          </button>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+
+        <!-- TAB 1: SINIESTRALIDAD -->
+        <div class="tab-pane fade show active" id="siniestralidad" role="tabpanel">
+          <div class="row g-4 mb-4">
+            <div class="col-lg-7">
+              <div class="card compass-card h-100">
+                <div class="card-header-custom">
+                  <div>
+                    <h6 class="card-title">Monitor de carga y pronostico de estancia</h6>
+                    <p class="card-subtitle">Comparativo mensual de ingresos, altas y criticos</p>
+                  </div>
+                  <span class="badge bg-primary-soft text-primary">2026</span>
+                </div>
+                <div class="card-body">
+                  <canvas id="barChart" height="200"></canvas>
+                </div>
+                <div class="card-footer-custom">
+                  <span class="legend-dot bg-primary"></span>Ingresos
+                  <span class="legend-dot bg-success ms-3"></span>Altas
+                  <span class="legend-dot bg-danger ms-3"></span>Criticos
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-5">
+              <div class="card compass-card h-100">
+                <div class="card-header-custom">
+                  <div>
+                    <h6 class="card-title">Correlacion Estancia Teorica vs Real</h6>
+                    <p class="card-subtitle">Cada burbuja representa un grupo de pacientes</p>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <canvas id="bubbleChart" height="200"></canvas>
+                </div>
+                <div class="card-footer-custom">
+                  <span class="text-muted small"><i class="bi bi-info-circle me-1"></i>Tamano = volumen de casos</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row g-4 mb-4">
+            <div class="col-lg-5">
+              <div class="card compass-card h-100">
+                <div class="card-header-custom">
+                  <div>
+                    <h6 class="card-title">Siniestralidad Clinica</h6>
+                    <p class="card-subtitle">Distribucion por tipo de diagnostico principal</p>
+                  </div>
+                </div>
+                <div class="card-body d-flex justify-content-center align-items-center">
+                  <canvas id="donutChart" height="220" width="220"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-7">
+              <div class="card compass-card h-100">
+                <div class="card-header-custom">
+                  <div>
+                    <h6 class="card-title">Tendencia semanal de eventos adversos</h6>
+                    <p class="card-subtitle">Ultimas 6 semanas</p>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <canvas id="lineChart" height="200"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card compass-card">
+            <div class="card-header-custom">
+              <div>
+                <h6 class="card-title">Detalle clinico de pacientes bajo seguimiento</h6>
+                <p class="card-subtitle">Vista resumida — clic en "Ver mas" para detalle completo</p>
+              </div>
+              <div class="d-flex gap-2 align-items-center">
+                <input type="search" id="tableSearch" class="form-control form-control-sm" placeholder="Buscar..." style="width:180px;">
+                <span class="badge bg-secondary" id="patientCount"></span>
+              </div>
+            </div>
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table compass-table align-middle mb-0">
+                  <thead>
+                    <tr>
+                      <th>Estado</th><th>Paciente</th><th>Edad</th>
+                      <th>Diagnostico</th><th>Ingreso</th><th>Estancia</th>
+                      <th>Riesgo</th><th>Acc.</th>
+                    </tr>
+                  </thead>
+                  <tbody id="patientsTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: DETALLE CLINICO -->
+        <div class="tab-pane fade" id="detalle" role="tabpanel">
+          <div class="row g-4">
+            <div class="col-lg-4">
+              <div class="card compass-card">
+                <div class="card-header-custom"><h6 class="card-title">Seleccionar paciente</h6></div>
+                <div class="card-body p-0">
+                  <ul class="patient-selector" id="patientSelector"></ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-8">
+              <div id="clinicalDetailPanel">
+                <div class="empty-state">
+                  <i class="bi bi-person-lines-fill"></i>
+                  <p>Selecciona un paciente para ver su historial clinico</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 3: TABLAS ANALITICAS -->
+        <div class="tab-pane fade" id="analiticas" role="tabpanel">
+          <div class="accordion compass-accordion" id="accordionAnaliticas">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseE">
+                  <i class="bi bi-cpu me-2 text-primary"></i>Analisis predictivo de eventos adversos
+                  <span class="ms-auto badge bg-danger me-3">3 alertas</span>
+                </button>
+              </h2>
+              <div id="collapseE" class="accordion-collapse collapse show" data-bs-parent="#accordionAnaliticas">
+                <div class="accordion-body">
+                  <table class="table compass-table align-middle mb-0">
+                    <thead><tr><th>ID</th><th>Paciente</th><th>Diagnostico</th><th>Probabilidad</th><th>Accion sugerida</th></tr></thead>
+                    <tbody>
+                      <tr><td class="text-muted small">EV-001</td><td>Juan Perez</td><td>Sepsis</td><td><span class="risk-badge alto">Alto</span></td><td>Interconsulta UCI urgente</td></tr>
+                      <tr><td class="text-muted small">EV-002</td><td>Luis Torres</td><td>Shock Cardiogenico</td><td><span class="risk-badge alto">Alto</span></td><td>ECG + troponinas inmediatos</td></tr>
+                      <tr><td class="text-muted small">EV-003</td><td>Ana Gomez</td><td>IRA post-quirurgica</td><td><span class="risk-badge medio">Medio</span></td><td>Control de creatinina</td></tr>
+                      <tr><td class="text-muted small">EV-004</td><td>Pedro Diaz</td><td>Descompensacion metabolica</td><td><span class="risk-badge medio">Medio</span></td><td>Ajuste insulinoterapia</td></tr>
+                      <tr><td class="text-muted small">EV-005</td><td>Maria Ruiz</td><td>Broncoespasmo</td><td><span class="risk-badge bajo">Bajo</span></td><td>Broncodilatadores PRN</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseF">
+                  <i class="bi bi-layers me-2 text-warning"></i>Nivel de complejidad del ingreso
+                  <span class="ms-auto badge bg-warning text-dark me-3">5 pacientes</span>
+                </button>
+              </h2>
+              <div id="collapseF" class="accordion-collapse collapse" data-bs-parent="#accordionAnaliticas">
+                <div class="accordion-body">
+                  <table class="table compass-table align-middle mb-0">
+                    <thead><tr><th>Paciente</th><th>Servicio</th><th>Complejidad</th><th>Score</th><th>Comparativo</th></tr></thead>
+                    <tbody>
+                      <tr><td>Juan Perez</td><td>UCI</td><td><span class="risk-badge alto">Alta</span></td><td>8.5</td><td><div class="progress" style="height:10px;border-radius:6px;min-width:120px"><div class="progress-bar bg-danger" style="width:85%"></div></div></td></tr>
+                      <tr><td>Luis Torres</td><td>UCI</td><td><span class="risk-badge alto">Alta</span></td><td>7.9</td><td><div class="progress" style="height:10px;border-radius:6px;min-width:120px"><div class="progress-bar bg-danger" style="width:79%"></div></div></td></tr>
+                      <tr><td>Ana Gomez</td><td>Cirugia</td><td><span class="risk-badge medio">Media</span></td><td>5.6</td><td><div class="progress" style="height:10px;border-radius:6px;min-width:120px"><div class="progress-bar bg-warning" style="width:56%"></div></div></td></tr>
+                      <tr><td>Pedro Diaz</td><td>Medicina Interna</td><td><span class="risk-badge medio">Media</span></td><td>4.2</td><td><div class="progress" style="height:10px;border-radius:6px;min-width:120px"><div class="progress-bar bg-warning" style="width:42%"></div></div></td></tr>
+                      <tr><td>Maria Ruiz</td><td>Emergencias</td><td><span class="risk-badge bajo">Baja</span></td><td>2.1</td><td><div class="progress" style="height:10px;border-radius:6px;min-width:120px"><div class="progress-bar bg-success" style="width:21%"></div></div></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseG">
+                  <i class="bi bi-shield-exclamation me-2 text-info"></i>Factores de riesgo y antecedentes clinicos
+                  <span class="ms-auto badge bg-info text-dark me-3">5 pacientes</span>
+                </button>
+              </h2>
+              <div id="collapseG" class="accordion-collapse collapse" data-bs-parent="#accordionAnaliticas">
+                <div class="accordion-body">
+                  <table class="table compass-table align-middle mb-0">
+                    <thead><tr><th>Paciente</th><th>Factores de riesgo</th><th>Antecedentes</th><th>Alergias</th></tr></thead>
+                    <tbody>
+                      <tr><td>Juan Perez</td><td>HTA, DM tipo 2</td><td>IAM prev. 2021, CABG 2022</td><td>AAS</td></tr>
+                      <tr><td>Luis Torres</td><td>ERC estadio 3, Tabaquismo</td><td>Nefrectomia parcial 2019</td><td>IECA</td></tr>
+                      <tr><td>Ana Gomez</td><td>Obesidad clase II</td><td>Histerectomia 2023</td><td>Ninguna conocida</td></tr>
+                      <tr><td>Pedro Diaz</td><td>DM tipo 2, Dislipidemia</td><td>Neuropatia diabetica</td><td>Metformina</td></tr>
+                      <tr><td>Maria Ruiz</td><td>Asma leve-moderada</td><td>Sin cirugia previa</td><td>AINES</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseH">
+                  <i class="bi bi-virus me-2 text-danger"></i>Complicaciones — Nuevos diagnosticos intrahospitalarios
+                  <span class="ms-auto badge bg-danger me-3">3 casos</span>
+                </button>
+              </h2>
+              <div id="collapseH" class="accordion-collapse collapse" data-bs-parent="#accordionAnaliticas">
+                <div class="accordion-body">
+                  <table class="table compass-table align-middle mb-0">
+                    <thead><tr><th>Paciente</th><th>Cod. CIE-10</th><th>Complicacion</th><th>Fecha deteccion</th><th>Estado</th></tr></thead>
+                    <tbody>
+                      <tr><td>Ana Gomez</td><td>J18.9</td><td>Neumonia intrahospitalaria</td><td>2026-04-06</td><td><span class="risk-badge medio">En tratamiento</span></td></tr>
+                      <tr><td>Pedro Diaz</td><td>T81.4</td><td>Infeccion de herida quirurgica</td><td>2026-04-08</td><td><span class="risk-badge alto">Requiere cirugia</span></td></tr>
+                      <tr><td>Luis Torres</td><td>I50.9</td><td>Insuficiencia cardiaca aguda</td><td>2026-04-02</td><td><span class="risk-badge alto">UCI</span></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- MODAL PACIENTE -->
+<div class="modal fade" id="patientModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content compass-modal">
+      <div class="modal-header">
+        <div>
+          <h5 class="modal-title mb-0" id="patientModalLabel">--</h5>
+          <small class="text-muted" id="patientModalSub">--</small>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body" id="patientModalBody"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL KPIs -->
+<div class="modal fade" id="kpiModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content compass-modal">
+      <div class="modal-header">
+        <h5 class="modal-title">KPIs Secundarios</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-3">
+          <div class="col-6 col-md-3"><div class="mini-kpi"><div class="mini-kpi-value text-info">5.2<small>dias</small></div><div class="mini-kpi-label">Estancia promedio</div></div></div>
+          <div class="col-6 col-md-3"><div class="mini-kpi"><div class="mini-kpi-value text-secondary">84%</div><div class="mini-kpi-label">Ocupacion UCI</div></div></div>
+          <div class="col-6 col-md-3"><div class="mini-kpi"><div class="mini-kpi-value text-dark">12</div><div class="mini-kpi-label">Reingresos 30d</div></div></div>
+          <div class="col-6 col-md-3"><div class="mini-kpi"><div class="mini-kpi-value text-primary">8</div><div class="mini-kpi-label">Altas voluntarias</div></div></div>
+          <div class="col-6 col-md-3"><div class="mini-kpi"><div class="mini-kpi-value text-success">164</div><div class="mini-kpi-label">Camas disponibles</div></div></div>
+          <div class="col-6 col-md-3"><div class="mini-kpi"><div class="mini-kpi-value text-warning">51</div><div class="mini-kpi-label">En espera cama</div></div></div>
+          <div class="col-6 col-md-3"><div class="mini-kpi"><div class="mini-kpi-value text-danger">23</div><div class="mini-kpi-label">Alertas activas</div></div></div>
+          <div class="col-6 col-md-3"><div class="mini-kpi"><div class="mini-kpi-value text-success">98%</div><div class="mini-kpi-label">Satisfaccion</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OFFCANVAS NOTIFICACIONES -->
+<div class="offcanvas offcanvas-end compass-offcanvas" tabindex="-1" id="notificationsPanel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title"><i class="bi bi-bell me-2"></i>Notificaciones</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+  <div class="offcanvas-body p-0">
+    <ul class="notif-list">
+      <li class="notif-item notif-danger">
+        <div class="notif-icon"><i class="bi bi-exclamation-triangle"></i></div>
+        <div><div class="notif-title">Paciente critico &mdash; Juan Perez</div><div class="notif-time">Hace 15 min</div></div>
+      </li>
+      <li class="notif-item notif-warning">
+        <div class="notif-icon"><i class="bi bi-clock-history"></i></div>
+        <div><div class="notif-title">140 altas pendientes de gestion</div><div class="notif-time">Hace 1 hora</div></div>
+      </li>
+      <li class="notif-item notif-info">
+        <div class="notif-icon"><i class="bi bi-info-circle"></i></div>
+        <div><div class="notif-title">Reporte mensual disponible</div><div class="notif-time">Hace 3 horas</div></div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="dashboard.js"></script>
+</body>
+</html>
